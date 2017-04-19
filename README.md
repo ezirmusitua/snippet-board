@@ -16,9 +16,46 @@
 
 ### Model
 #### Snippet
-| link\_hash | create\_at | raw\_content | create\_by |
-| :------:| :------: | :------: | :------: |
-| TEXT | INREGER | TEXT | TEXT |
+| id | link\_hash | create\_at | raw\_content | create\_by |
+| :------: | :------:| :------: | :------: | :------: |
+| INTEGER | TEXT | INREGER | TEXT | TEXT |
+
+### Routes
+#### Post a new snippet
+```
+url: /snippet/api/v0.1.0
+method: POST
+body: {
+    link: string,
+    raw_content: string
+}
+action: return {status: int}
+```
+
+#### Display snippet list
+```
+url: /snippet
+method: GET
+action: render snippet list template with [{
+    id: int,
+    link_hash: string,
+    create_at: int,
+    create_by: string
+}]
+```
+
+#### Display snippet
+```
+url: /snippet/<int:id>
+method: GET
+action: render snippet template with {
+    id: int,
+    link_hash: string,
+    raw_content: string,
+    create_at: int,
+    create_by: string
+}
+```
 
 ### Future
 1. 能够抓取原始站点内容并保存到本地数据库中
@@ -34,7 +71,7 @@
 - [x] 初始化项目结构
 - [x] 定义 数据 models
 - [x] 初始化数据库
-- [] 设计 路由
+- [x] 设计 路由
 - [] 设计 templates
 - [] 实现逻辑
 - [] 简单测试
