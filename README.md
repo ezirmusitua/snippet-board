@@ -14,6 +14,12 @@
 4. 能够编辑 snippet
 5. 能够将编辑后的 snippet 保存到数据库中
 
+### Model
+#### Snippet
+| link\_hash | create\_at | raw\_content | create\_by |
+| :------:| :------: | :------: | :------: |
+| TEXT | INREGER | TEXT | TEXT |
+
 ### Future
 1. 能够抓取原始站点内容并保存到本地数据库中
 2. 增加用户系统并作为一个能远程使用的站点
@@ -26,8 +32,8 @@
 ### TODOs
 - [x] 初始化 flask 项目
 - [x] 初始化项目结构
-- [] 定义 数据 models
-- [] 初始化数据库
+- [x] 定义 数据 models
+- [x] 初始化数据库
 - [] 设计 路由
 - [] 设计 templates
 - [] 实现逻辑
