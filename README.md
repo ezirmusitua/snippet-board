@@ -60,6 +60,8 @@ action: render snippet template with {
 ### Future
 1. 能够抓取原始站点内容并保存到本地数据库中
 2. 增加用户系统并作为一个能远程使用的站点
+3. 能够手动添加新的内容
+4. 能够搜索存在的内容
 
 ### Techniques
 针对初始阶段用到的技术有：
