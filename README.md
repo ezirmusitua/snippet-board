@@ -74,7 +74,7 @@ action: render snippet template with {
 - [x] 定义 数据 models
 - [x] 初始化数据库
 - [x] 设计 路由
-- [] 设计 templates
+- [x] 设计 templates
 - [] 实现逻辑
 - [] 简单测试
 

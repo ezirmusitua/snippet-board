@@ -1,4 +1,13 @@
+"""use sqlalchemy in Future version"""
 import sqlite3
+from types import *
+
+
+def concat_query_value_with_type(prev, _value):
+    if type(_value) is StringType:
+        return prev + '\'' + _value + '\', '
+    else:
+        return prev + str(_value) + ', '
 
 
 class Singleton(type):
@@ -40,7 +49,8 @@ class SqliteDB(object):
         SqliteDB._connect()
         field_str = '(' + ', '.join(_fields) + \
             ')' if field is not None else '*'
-        cursor = SqliteDB.db.execute('SELECT ? FROM ?;', [field_str, _from])
+        query_str = 'SELECT ' + field_str + ' FROM ' + _from + ';'
+        cursor = SqliteDB.db.execute(query_str)
         result = SqliteDB._fetch_all_as_array(cursor)
         SqliteDB._disconnect()
         return result
@@ -52,8 +62,9 @@ class SqliteDB(object):
             ')' if field is not None else '*'
         where_str = reduce(lambda prev, dict_item: prev +
                            dict_item[0] + '=' + dict_item[1], where.items(), '')
-        cursor = SqliteDB.db.execute('SELECT ? FROM ? WHERE ?;', [
-            field_str, _from, where_str])
+        query_str = 'SELECT ' + field_str + ' FROM ' + \
+            _from + ' WHERE ' + where_str + ';'
+        cursor = SqliteDB.db.execute(query_str)
         result = SqliteDB._fetch_all_as_array(cursor)
         SqliteDB._disconnect()
         return result
@@ -61,18 +72,25 @@ class SqliteDB(object):
     @staticmethod
     def _insert_without_fields(table, _values):
         SqliteDB._connect()
-        value_str = '(' + ', '.join(_values) + ')'
-        SqliteDB.db.execute('INSERT into ' + table +
-                            ' VALUES ' + value_str + ';')
+        value_str = '(' + reduce(concat_query_value_with_type,
+                                 _values, '')[:-2] + ')'
+        query_str = 'INSERT INTO ' + table + ' VALUES ' + value_str + ';'
+        print 'Query string: ', query_str
+        SqliteDB.db.execute(query_str)
+        SqliteDB.db.commit()
         SqliteDB._disconnect()
 
     @staticmethod
     def _insert_with_fields(table, _fields, _values):
         SqliteDB._connect()
         field_str = '(' + ', '.join(_fields) + ')'
-        value_str = '(' + ', '.join(_values) + ')'
-        SqliteDB.db.execute('INSERT into ' + field_str +
-                            ' ' + table + ' VALUES ' + value_str + ';')
+        value_str = '(' + reduce(concat_query_value_with_type,
+                                 _values, '') + ')'
+        query_str = 'INSERT INTO ' + table + \
+            ' VALUES ' + field_str + ' ' + value_str + ';'
+        print 'Query string: ', query_str
+        SqliteDB.db.execute(query_str)
+        SqliteDB.db.commit()
         SqliteDB._disconnect()
 
     @staticmethod
