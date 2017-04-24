@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+}
+
+.header-navbar {
+    display: flex;
+    flex-direction: row;
+    height: 80px;
+    background-color: #FF9900;
+    padding: 0 32px;
+}
+
+.header-navbar h3 {
+    flex: 16.67%;
+    font-size: 30px;
+    color: white;
+    margin: 0;
+    line-height: 80px;
+}
+
+.search-input-container {
+    flex: 66.67%;
+    padding: 24px 80px;
+}
+.search-input input {
+    height: 32px;
+    width: 66.67%;
+    border-radius: 4px;
+    border: none;
+    padding: 0 16px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.56);
+}
+
+.search-icon-container {
+    flex: 16.67%;
+    padding: 24px 0;
+}
+
+.search-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+
