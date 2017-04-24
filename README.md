@@ -75,7 +75,12 @@ action: render snippet template with {
 - [x] 初始化数据库
 - [x] 设计 路由
 - [x] 设计 templates
-- [] 实现逻辑
+- [x] 实现 单例 Database
+- [] 实现 snippet list 静态 template render
+- [] 实现 snippet view 静态 template render
+- [] 实现 snippet list logic
+- [] 实现 snippet view logic
+- [] 实现 post API
 - [] 简单测试
 
 
