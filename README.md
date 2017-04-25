@@ -44,19 +44,6 @@ action: render snippet list template with [{
 }]
 ```
 
-#### Display snippet
-```
-url: /snippet/<int:id>
-method: GET
-action: render snippet template with {
-    id: int,
-    link_hash: string,
-    raw_content: string,
-    create_at: int,
-    create_by: string
-}
-```
-
 ### Future
 1. 能够抓取原始站点内容并保存到本地数据库中
 2. 增加用户系统并作为一个能远程使用的站点
@@ -76,10 +63,8 @@ action: render snippet template with {
 - [x] 设计 路由
 - [x] 设计 templates
 - [x] 实现 单例 Database
-- [] 实现 snippet list 静态 template render
-- [] 实现 snippet view 静态 template render
+- [x] 实现 snippet list 静态 template render
 - [] 实现 snippet list logic
-- [] 实现 snippet view logic
 - [] 实现 post API
 - [] 简单测试
 
