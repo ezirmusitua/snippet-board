@@ -22,7 +22,7 @@ body {
     flex: 66.67%;
     padding: 24px 80px;
 }
-.search-input input {
+.search-input-container input {
     height: 32px;
     width: 66.67%;
     border-radius: 4px;
@@ -37,9 +37,10 @@ body {
     padding: 24px 0;
 }
 
-.search-icon svg {
+.search-icon {
     width: 32px;
     height: 32px;
+    cursor: pointer;
 }
 
 
