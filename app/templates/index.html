@@ -1,8 +1,10 @@
+{% from "snippet.html" import snippet with context %}
 {% extends "layout.html" %}
-{% block title %}
-    Hello world!
-{% endblock %}
-{% block body %}
-    {{ super() }}
-
+{% block title %} Main {% endblock %}
+{% block page_content %}
+    <article class="snippet-list-container">
+        {% for i in range(8) %}
+            {{ snippet() }}
+        {% endfor %}
+    </article>
 {% endblock %}

@@ -5,15 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="{{ url_for('static', filename = 'css/style.css') }}" rel="stylesheet">
+    <title> {% block title %}{% endblock %} - Snippet Board </title>
 </head>
 <body>
-{% block content %}
-    <div class="container">
-        {% include "header.html" %}
+<div class="container">
+    {% include "header.html" %}
+    <section class="content-container">
         {% block page_content %}
         {% endblock %}
-    </div>
-{% endblock %}
+    </section>
+    {% include "footer.html" %}
+</div>
 {% block script %}
     <script src="{{ url_for('static', filename = 'js/scripts.js') }}"></script>
 {% endblock %}

@@ -1,13 +1,28 @@
+/* scroll bar */
+::-webkit-scrollbar {
+    width: 0;
+}
+
+/* body */
 body {
     margin: 0;
 }
 
+/* header nav bar */
 .header-navbar {
     display: flex;
     flex-direction: row;
     height: 80px;
     background-color: #FF9900;
     padding: 0 32px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 420px) {
+    .header-navbar {
+        padding: 0 36px;
+        height: 48px;
+    }
 }
 
 .header-navbar h3 {
@@ -18,10 +33,23 @@ body {
     line-height: 80px;
 }
 
+@media (max-width: 420px) {
+    .header-navbar h3 {
+        display: none;
+    }
+}
+
 .search-input-container {
     flex: 66.67%;
     padding: 24px 80px;
 }
+
+@media (max-width: 420px) {
+    .search-input-container {
+        padding: 8px 4px;
+    }
+}
+
 .search-input-container input {
     height: 32px;
     width: 66.67%;
@@ -32,9 +60,21 @@ body {
     color: rgba(0, 0, 0, 0.56);
 }
 
+@media (max-width: 420px) {
+    .search-input-container input {
+        width: 90%;
+    }
+}
+
 .search-icon-container {
     flex: 16.67%;
     padding: 24px 0;
+}
+
+@media (max-width: 420px) {
+    .search-icon-container {
+        display: none;
+    }
 }
 
 .search-icon {
@@ -43,4 +83,76 @@ body {
     cursor: pointer;
 }
 
+/* content container */
+.content-container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: calc(100vh - 80px);
+}
+
+/* footer */
+.footer-container {
+    height: 64px;
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.footer-container > p, a {
+    color: rgba(0, 0, 0, 0.56);
+    font-size: 12px;
+    line-height: 64px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* snippet macro */
+.snippet-container {
+    background-color: #0099ff;
+    width: 336px;
+    height: 420px;
+    box-sizing: border-box;
+    margin: 8px;
+}
+
+.snippet-header-container {
+    background-color: #666666;
+    width: 336px;
+    height: 32px;
+}
+
+.snippet-header-container h3 {
+    margin: 0;
+    font-size: 16px;
+    line-height: 32px;
+    padding-left: 16px;
+    color: white;
+    font-weight: 400;
+}
+
+.snippet-content-container {
+    padding: 16px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 356px;
+}
+
+.snippet-content-container * {
+    margin: 0;
+    font-size: 14px;
+    color: white;
+}
+
+/* snippet list */
+.snippet-list-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 16px 256px;
+}
+
+/* snippet list responsive */
+@media (max-width: 420px) {
+    .snippet-list-container {
+        padding: 8px 32px;
+    }
+}
 
