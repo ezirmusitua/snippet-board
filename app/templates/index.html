@@ -1,10 +1,10 @@
-{% from "snippet.html" import snippet with context %}
+{% from "snippet.html" import render_snippet with context %}
 {% extends "layout.html" %}
 {% block title %} Main {% endblock %}
 {% block page_content %}
     <article class="snippet-list-container">
-        {% for i in range(8) %}
-            {{ snippet() }}
+        {% for snippet in snippets %}
+            {{ render_snippet(snippet) }}
         {% endfor %}
     </article>
 {% endblock %}

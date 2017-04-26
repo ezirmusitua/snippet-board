@@ -30,7 +30,6 @@ class SqliteDB(object):
 
     @staticmethod
     def _connect():
-        print SqliteDB.dbpath
         if SqliteDB.db is None:
             SqliteDB.db = sqlite3.connect(SqliteDB.dbpath)
 
@@ -44,9 +43,10 @@ class SqliteDB(object):
     def _fetch_all_as_array(cursor):
         result = list()
         for row in cursor.fetchall():
+            doc = dict()
             for idx, value in enumerate(row):
-                print row
-                result.append({cursor.description[idx][0]: value})
+                doc[cursor.description[idx][0]] = value
+            result.append(doc)
         return result
         # return [dict((cursor.description[idx][0], value)
         # for idx, value in enumerate(row) for row in cursor.fetchall())]
@@ -79,9 +79,9 @@ class SqliteDB(object):
     @staticmethod
     def select(_fields, _from, _where=None):
         if _where is None:
-            SqliteDB._select_without_where(_fields, _from)
+            return SqliteDB._select_without_where(_fields, _from)
         else:
-            SqliteDB._select_with_where(_fields, _from)
+            return SqliteDB._select_with_where(_fields, _from)
 
     @staticmethod
     def _insert_without_fields(table, _values):
@@ -89,7 +89,6 @@ class SqliteDB(object):
         value_str = '(' + reduce(concat_query_value_with_type,
                                  _values, '')[:-2] + ')'
         query_str = 'INSERT INTO ' + table + ' VALUES ' + value_str + ';'
-        print 'Query string: ', query_str
         SqliteDB.db.execute(query_str)
         SqliteDB.db.commit()
         SqliteDB._disconnect()
@@ -102,7 +101,6 @@ class SqliteDB(object):
                                  _values, '') + ')'
         query_str = 'INSERT INTO ' + table + \
             ' VALUES ' + field_str + ' ' + value_str + ';'
-        print 'Query string: ', query_str
         SqliteDB.db.execute(query_str)
         SqliteDB.db.commit()
         SqliteDB._disconnect()

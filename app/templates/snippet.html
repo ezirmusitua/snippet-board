@@ -1,47 +1,10 @@
-{% macro snippet() -%}
+{% macro render_snippet(snippet) %}
 <div class="snippet-container">
     <div class="snippet-header-container">
-        <h3>2017/04/17</h3>
+        <h3>{{ snippet.create_at | date }}</h3>
     </div>
     <div class="snippet-content-container">
-        <p>
-Date: 2017-4-25[21:59]
-<br>
-Content:
-<pre>
-from flask_assets import Bundle, Environment
-from .. import app
-bundles = {
-    'home_js': Bundle(
-
-        'js/lib/jquery-1.10.2.js',
-        'js/home.js',
-        output='gen/home.js),
-
-    'home_css': Bundle(
-        'css/lib/reset.css',
-        'css/common.css',
-        'css/home.css',
-        output='gen/home.css),
-
-    'admin_js': Bundle(
-        'js/lib/jquery-1.10.2.js',
-        'js/lib/Chart.js',
-        'js/admin.js',
-        output='gen/admin.js),
-
-    'admin_css': Bundle(
-        'css/lib/reset.css',
-        'css/common.css',
-        'css/admin.css',
-        output='gen/admin.css)
-}
-
-assets = Environment(app)
-
-assets.register(bundles)
-<pre>
-</p>
+        <p>{{ snippet.raw_content }}</p>
     </div>
 </div>
 {%- endmacro %}
