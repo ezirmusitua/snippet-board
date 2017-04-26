@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS snippet;
 CREATE TABLE snippet(
-   link_hash   TEXT     NOT NULL   PRIMARY KEY,
+   id          INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+   link_hash   TEXT    NOT NULL,
    create_at   INTEGER,
    raw_content TEXT,
    create_by   TEXT

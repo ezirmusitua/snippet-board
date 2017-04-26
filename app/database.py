@@ -78,10 +78,13 @@ class SqliteDB(object):
 
     @staticmethod
     def select(_fields, _from, _where=None):
-        if _where is None:
-            return SqliteDB._select_without_where(_fields, _from)
-        else:
-            return SqliteDB._select_with_where(_fields, _from)
+        try:
+            if _where is None:
+                return SqliteDB._select_without_where(_fields, _from)
+            else:
+                return SqliteDB._select_with_where(_fields, _from)
+        except Exception, e:
+            print e
 
     @staticmethod
     def _insert_without_fields(table, _values):
@@ -98,16 +101,20 @@ class SqliteDB(object):
         SqliteDB._connect()
         field_str = '(' + ', '.join(_fields) + ')'
         value_str = '(' + reduce(concat_query_value_with_type,
-                                 _values, '') + ')'
-        query_str = 'INSERT INTO ' + table + \
-            ' VALUES ' + field_str + ' ' + value_str + ';'
+                                 _values, '')[:-2] + ')'
+        query_str = 'INSERT INTO ' + table + ' ' + field_str + \
+            ' VALUES ' + value_str + ';'
+        print query_str
         SqliteDB.db.execute(query_str)
         SqliteDB.db.commit()
         SqliteDB._disconnect()
 
     @staticmethod
     def insert(table, _fields_or_values, _values=None):
-        if _values is None:
-            SqliteDB._insert_without_fields(table, _fields_or_values)
-        else:
-            SqliteDB._insert_with_fields(table, _fields, _values)
+        try:
+            if _values is None:
+                SqliteDB._insert_without_fields(table, _fields_or_values)
+            else:
+                SqliteDB._insert_with_fields(table, _fields_or_values, _values)
+        except Exception, e:
+            print e

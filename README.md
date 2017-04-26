@@ -64,7 +64,7 @@ action: render snippet list template with [{
 - [x] 设计 templates
 - [x] 实现 单例 Database
 - [x] 实现 snippet list 静态 template render
-- [] 实现 snippet list logic
+- [x] 实现 snippet list logic
 - [] 实现 post API
 - [] 简单测试
 
