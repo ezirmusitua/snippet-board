@@ -65,7 +65,11 @@ action: render snippet list template with [{
 - [x] 实现 单例 Database
 - [x] 实现 snippet list 静态 template render
 - [x] 实现 snippet list logic
-- [] 实现 post API
-- [] 简单测试
+- [x] 实现 post API
+- [x] 简单测试
+
+### Bugs to fix
+- [] 使用 SQLAlchemy 进行数据库操作
+- [] 使用 蓝本 管理 路由
 
 

@@ -25,7 +25,9 @@ def route_to_index():
 def route_to_post_snippet():
     fields = ('link_hash', 'raw_content', 'create_at', 'create_by')
     snippet = request.get_json()
-    snippet['raw_content'] = str(snippet['raw_content'])
+    print type(snippet['raw_content'])
+    snippet['raw_content'] = '\'' + \
+        snippet['raw_content'].replace('\'', '\\\'') + '\''
     snippet['create_by'] = 'jferroal'
     snippet['create_at'] = time() * 1000
     snippet['link_hash'] = hashlib.sha1(snippet['link']).hexdigest()
