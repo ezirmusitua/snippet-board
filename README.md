@@ -4,7 +4,8 @@
 主要功能是接收来自 `Annotation board` 的 snippets 请求，并将请求内容保存到数据库中
 
 目前的想法是作为一个本地运行的 server，不开放到外网，通过修改 hosts 让 `Annotation board` 能够连通
-
+### Version log
+v0.1.0 - 完成基本架构，实现最简单的功能
 
 ### Requirements
 初始阶段希望达成的一些需求：
@@ -70,8 +71,8 @@ action: render snippet list template with [{
 - [x] 和 Monkey Script 通信
 
 ### Bugs to fix
-- [] 使用 SQLAlchemy 进行数据库操作
+- [x] 使用 SQLAlchemy 进行数据库操作
 - [x] 使用 蓝本 管理 路由
-- [] 复制文本中无法包含 `'` 的问题
+- [x] 复制文本中无法包含 `'` 的问题
 
 
