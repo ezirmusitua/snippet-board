@@ -3,7 +3,8 @@
 
 主要功能是接收来自 `Annotation board` 的 snippets 请求，并将请求内容保存到数据库中
 
-目前的想法是作为一个本地运行的 server，不开放到外网，通过修改 hosts 让 `Annotation board` 能够连通
+目前的想法是作为一个本地运行的 server，不开放到外网 ~~，通过修改 hosts 让 `Annotation board` 能够连通~~
+
 ### Version log
 v0.1.0 - 完成基本架构，实现最简单的功能
 
@@ -14,6 +15,10 @@ v0.1.0 - 完成基本架构，实现最简单的功能
 3. 能够展示 snippet
 4. 能够编辑 snippet
 5. 能够将编辑后的 snippet 保存到数据库中
+6. 能够手动添加新的内容
+7. 能够搜索存在的内容
+8. 能够抓取原始站点内容并保存到本地数据库中
+10. 增加用户系统并作为一个能远程使用的站点
 
 ### Model
 #### Snippet
@@ -45,16 +50,10 @@ action: render snippet list template with [{
 }]
 ```
 
-### Future
-1. 能够抓取原始站点内容并保存到本地数据库中
-2. 增加用户系统并作为一个能远程使用的站点
-3. 能够手动添加新的内容
-4. 能够搜索存在的内容
-
 ### Techniques
 针对初始阶段用到的技术有：
 1. flask
-2. sqlite3
+2. sqlalchemy
 
 ### TODOs
 - [x] 初始化 flask 项目
