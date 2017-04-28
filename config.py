@@ -5,10 +5,13 @@ import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+print 'sqlite:///' + os.path.join(basedir, 'db/snippet-.sqlite')
+
 
 class Config(object):
-    DATABASE = os.environ.get('DEV_DATABASE_URL') or os.path.join(
-        basedir, 'db/snippet_board.db')
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        'TEST_DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'db/snippet_board.db')
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
     @staticmethod
     def init_app(app):
