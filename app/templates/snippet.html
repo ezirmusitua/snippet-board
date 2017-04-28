@@ -1,7 +1,7 @@
 {% macro render_snippet(snippet) %}
 <div class="snippet-container">
     <div class="snippet-header-container">
-        <h3>{{ snippet.create_at | date }}</h3>
+        <h3>{{ snippet.create_at | formatDate }}</h3>
     </div>
     <div class="snippet-content-container">
         <p>{{ snippet.raw_content }}</p>
