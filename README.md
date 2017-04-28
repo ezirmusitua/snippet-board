@@ -71,7 +71,7 @@ action: render snippet list template with [{
 
 ### Bugs to fix
 - [] 使用 SQLAlchemy 进行数据库操作
-- [] 使用 蓝本 管理 路由
+- [x] 使用 蓝本 管理 路由
 - [] 复制文本中无法包含 `'` 的问题
 
 
