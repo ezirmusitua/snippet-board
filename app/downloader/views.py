@@ -35,11 +35,30 @@ def tell_status(gid):
 
 @downloader.route('/api/v0.1.0/task', methods=['GET'])
 def tell_all_status():
-    tasks = DownloadTask.query.all()
-    tasks_status = list()
-    for task in tasks:
-        tell_status_req = Aria2Req().tellStatus(task.download_id)
-        tasks_status.append(requests.post(
-            'http://localhost:6800/jsonrpc', tell_status_req).json())
-    print tasks_status
-    return '111'
+    taskNames = map(lambda x: x.strip(), request.args.get('names').split(';'))
+    existed_tasks = DownloadTask.query.filter(
+        DownloadTask.id.in_(taskNames)).all()
+    existed_task_name_map = dict((task['name'], dict(task, index=index)) for (
+        index, task) in enumerate(existed_tasks))
+    task_stat_name_map = dict()
+    for taskName in taskNames:
+        task_stat = dict()
+        _taskInfo = existed_task_name_map.get(taskName, None)
+        if _taskInfo is not None:
+            tell_stat_req = Aria2Req().tellStatus(
+                existed_tasks[_taskInfo.index].download_id)
+            task_stat = requests.post(
+                'http://localhost:6800/jsonrpc', tell_status_req).json()
+            task_stat = {
+                'length': task_status['length'],
+                'completedLength': task_status['completedLength'],
+                'status': task_status['status']
+            }
+        else:
+            task_stat = {
+                'length': '1',
+                'completedLength': '0',
+                'status': 'error',
+            }
+        task_stat_name_map[taskName] = task_stat
+    return str(task_stat_name_map)
