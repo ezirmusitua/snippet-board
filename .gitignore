@@ -99,3 +99,7 @@ ENV/
 
 # sqlite3
 *.db
+
+# aria2
+**.aria2
+**.mp4
