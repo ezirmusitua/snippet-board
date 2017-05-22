@@ -23,5 +23,4 @@ class Aria2Req(object):
         self.req_body['params'] = [gid]
         if fields is not None:
             self.req_body['params'].push(fields)
-        print self.req_body
         return json.dumps(self.req_body)
