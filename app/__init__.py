@@ -18,6 +18,8 @@ def create_app(config_name):
 
     from snippet import snippet as snippet_blueprint
     app.register_blueprint(snippet_blueprint, url_prefix="/snippet")
+    from downloader import downloader as downloader_blueprint
+    app.register_blueprint(downloader_blueprint, url_prefix="/downloader")
 
     _filters = {name: function for name, function in getmembers(
         filters) if isfunction(function)}
