@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from inspect import getmembers, isfunction
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import config
-import filters
+from .filters import formatDate
 
 db = SQLAlchemy()
 
@@ -16,13 +15,12 @@ def create_app(config_name):
 
     db.init_app(app)
 
-    from snippet import snippet as snippet_blueprint
+    from .snippet import snippet as snippet_blueprint
     app.register_blueprint(snippet_blueprint, url_prefix="/snippet")
-    from downloader import downloader as downloader_blueprint
+    from .downloader import downloader as downloader_blueprint
     app.register_blueprint(downloader_blueprint, url_prefix="/downloader")
 
-    _filters = {name: function for name, function in getmembers(
-        filters) if isfunction(function)}
+    _filters = {'name': 'formatDate'}
     app.jinja_env.filters.update(_filters)
 
     return app

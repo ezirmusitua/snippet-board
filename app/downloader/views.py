@@ -1,5 +1,5 @@
 import json
-from flask import render_template, request
+from flask import request
 import requests
 from . import downloader
 from .aira2_req import Aria2Req
@@ -32,9 +32,7 @@ def tell_status(gid):
     tell_status_req = Aria2Req().tellStatus(gid)
     prev_task_stat = requests.post(
         'http://localhost:6800/jsonrpc', tell_status_req).json()['result']
-    print json.dumps(prev_task_stat)
     if 'followedBy' in prev_task_stat:
-        tell_stat_req = Aria2Req().tellStatus(prev_task_stat['followedBy'])
         task_stat = requests.post(
             'http://localhost:6800/jsonrpc', tell_status_req).json()['result']
     else:
@@ -48,32 +46,39 @@ def tell_status(gid):
 
 @downloader.route('/api/v0.1.0/task', methods=['GET'])
 def tell_all_status():
-    taskNames = map(lambda x: x.strip(), request.args.get('names').split(';'))
+    task_names = list(map(lambda x: x.strip(), request.args.get('names').split(';')))
     existed_tasks = DownloadTask.query.filter(
-        DownloadTask.title.in_(taskNames)).all()
+        DownloadTask.title.in_(task_names)).all()
     existed_tasks_name_map = dict()
     for index in range(0, len(existed_tasks)):
         task = existed_tasks[index]
         existed_tasks_name_map[task.title] = index
     task_stat_name_map = dict()
-    for taskName in taskNames:
-        taskIndex = existed_tasks_name_map.get(taskName, None)
-        if taskIndex is not None:
-            existed_task = existed_tasks[taskIndex]
+    print(task_names)
+    for taskName in task_names:
+        task_index = existed_tasks_name_map.get(taskName, None)
+        if task_index is not None:
+            existed_task = existed_tasks[task_index]
             tell_stat_req = Aria2Req().tellStatus(
                 existed_task.download_id)
             prev_task_stat = requests.post(
-                'http://localhost:6800/jsonrpc', tell_stat_req).json()['result']
+                'http://localhost:6800/jsonrpc', tell_stat_req).json().get('result', None)
+            if prev_task_stat is None:
+                task_stat_name_map[taskName] = {
+                    'name': taskName,
+                    'totalLength': '1',
+                    'completedLength': '0',
+                    'status': 'error',
+                }
+                continue
+
             if 'followedBy' in prev_task_stat:
                 tell_stat_req = Aria2Req().tellStatus(
                     prev_task_stat['followedBy'][0])
-                print 'followed by: ', json.dumps(tell_stat_req)
                 task_stat = requests.post(
                     'http://localhost:6800/jsonrpc', tell_stat_req).json()['result']
-                print task_stat
             else:
                 task_stat = prev_task_stat
-            print task_stat['status']
             task_stat_name_map[taskName] = {
                 'name': taskName,
                 'totalLength': task_stat['totalLength'],
@@ -88,4 +93,5 @@ def tell_all_status():
                 'status': 'unknown',
                 'name': taskName
             }
+    print(task_stat_name_map)
     return json.dumps(task_stat_name_map)
