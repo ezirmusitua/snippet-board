@@ -20,3 +20,5 @@ CREATE TABLE download_task(
 );
 
 -- SELECT * from snippet WHERE create_by = 'jferroal';
+-- sqlite3 ./db/snippet_board.db
+-- sqlite> .read ./..scripts/init-db.sql

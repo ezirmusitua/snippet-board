@@ -1,6 +1,5 @@
 import hashlib
 from time import time
-from flask_sqlalchemy import SQLAlchemy
 from . import db
 
 
@@ -11,10 +10,11 @@ class Snippet(db.Model):
     raw_content = db.Column(db.String())
     create_by = db.Column(db.String())
 
-    def __init__(self, snippetBody):
-        self.link_hash = hashlib.sha1(snippetBody['link']).hexdigest()
-        self.raw_content = snippetBody['raw_content']
-        self.create_by = snippetBody.get('create_by', 'jferroal')
+    def __init__(self, snippet_body):
+        print(snippet_body)
+        self.link_hash = hashlib.sha1(snippet_body['link'].encode()).hexdigest()
+        self.raw_content = snippet_body['raw_content']
+        self.create_by = snippet_body.get('create_by', 'jferroal')
         self.create_at = time() * 1000
 
     def __repr__(self):

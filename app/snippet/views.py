@@ -13,8 +13,8 @@ def list_snippet():
 
 @snippet.route('/api/v0.1.0', methods=['POST'])
 def route_to_post_snippet():
-    snippetBody = request.get_json()
-    snippet = Snippet(snippetBody)
-    db.session.add(snippet)
+    snippet_body = request.get_json()
+    _snippet = Snippet(snippet_body)
+    db.session.add(_snippet)
     db.session.commit()
     return 'create snippet successed'
