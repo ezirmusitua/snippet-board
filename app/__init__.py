@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 from config import config
 from .filters import formatDate
 
@@ -9,6 +10,7 @@ db = SQLAlchemy()
 
 def create_app(config_name):
     app = Flask(__name__)
+    CORS(app)
     current_config = config[config_name]
     app.config.from_object(current_config)
     current_config.init_app(app)
