@@ -14,13 +14,13 @@ def start_download_task():
     if len(existed_tasks) > 0:
         return 'task existed'
     add_uri_req = Aria2Req().addUri(
-        task_body['name'], [task_body['uri']])
+        task_body['name'], [task_body['magnet']])
     res_json = requests.post(
         'http://localhost:6800/jsonrpc', add_uri_req).json()
     task = DownloadTask({
         'title': res_json['id'],
         'download_id': res_json['result'],
-        'download_uri': task_body['uri'],
+        'download_uri': task_body['magnet'],
     })
     db.session.add(task)
     db.session.commit()
